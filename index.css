@@ -5,5 +5,25 @@
 body {
     margin: 0;
     font-family: Inter, sans-serif;
+    background-color: beige;
 }
 
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
+    background-color:aliceblue ;
+    height: 80px;
+    box-shadow: 2px;
+}
+
+header > img {
+    width: 50px;
+
+}
+
+header > h1 {
+    font-weight: 400;
+    margin: 0;
+}
