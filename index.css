@@ -50,13 +50,13 @@ main {
     max-width: 400px;
 }
 .form > button{
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
     color: rgb(255, 255, 255);
     border-radius: 6px;
     border: none;
     background-color: black;
     width: 150px;
-    font-size: 0.759rem;
+    font-size: 0.800rem;
     font-weight: 500;
 
 
