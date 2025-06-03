@@ -5,7 +5,7 @@
 body {
     margin: 0;
     font-family: Inter, sans-serif;
-    background-color: beige;
+    background-color: rgba(245, 245, 220, 0.861);
 }
 
 header {
@@ -25,5 +25,23 @@ header > img {
 
 header > h1 {
     font-weight: 400;
-    margin: 0;
+   
+}
+main {
+    padding: 10px 30px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+
+
+}
+.form > input {
+    border-radius: 6px;
+    border: 1px solid #D1D5DB;
+    padding: 9px 13px;
+    box-shadow:2 px;
 }
