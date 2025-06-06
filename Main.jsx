@@ -16,9 +16,9 @@ export default function Main(){
     }
     return (
         <main>
-            <form  action={addIngredient} className="form">
+            <form  action={addIngredient} className="add-Ingredient-form">
                 <input 
-                onChange
+              
                 type="text"
                 aria-label="Add ingredient"
                 placeholder="e.g oregano"
@@ -29,6 +29,17 @@ export default function Main(){
             </button> 
 
             </form>
+            <section>
+                <h2>Ingredients on Hand:</h2>
+                <ul className="Ingredients-list" aria-live="polite">{ingredientsListItems}</ul>
+                <div className="get-recipe-container">
+                    <div>
+                        <h3>Ready for a Recipe?</h3>
+                        <p>Generate  recipe from your list of ingredients</p>
+                    </div>
+                    <button>Get a recipe</button>
+                </div>
+            </section>
             <ul>
                 {ingredientsListItems}
             </ul>
