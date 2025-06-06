@@ -70,17 +70,18 @@ main {
 }
 
 .form > button:hover{
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(65, 65, 65);
+    cursor: pointer;
 }
 .get-recipe-container button {
     border: none;
     border-radius: 6px;
-    background: rgb(0, 0, 0);
+    background: rgb(152, 0, 0);
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.05);
     color: #fafaf8;
     padding: 9px 17px;
     font-family: Inter, sans-serif;
-    font-size: 0.0876rem;
+    font-size: 1 rem;
     cursor: pointer;
 }
 .get-recipe-container p {
