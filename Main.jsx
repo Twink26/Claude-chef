@@ -1,48 +1,41 @@
 import React from "react"
+import IngredientsList from "./components/IngredientsList"
+import ClaudeRecipe from "./components/ClaudeRecipe"
+import { getrecipefromai} from "./ai"
 export default function Main(){
     const [ingredients, setIngredients] = React.useState([])
+    const [recipe, setRecipe] = React.useState("")
 
-    const ingredientsListItems = ingredients.map(ingredient => (
-        <li key={ingredient}>{ingredient}</li>
-    ))
-
-    function addIngredient(formData){
-        
-      
-       
-        const newIngredient = formData.get("ingredient")
-        setIngredients(previousIngredients => [...previousIngredients, newIngredient])
-        
+    
+    async function getrecipe(){
+        const recipemarkdown = await getrecipefromai(ingredients)
+        setRecipe(recipemarkdown)
     }
+    function addIngredient(formData) {
+        const newIngredient = formData.get("ingredient")
+        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
+    }
+
     return (
         <main>
-            <form  action={addIngredient} className="add-Ingredient-form">
-                <input 
-              
-                type="text"
-                aria-label="Add ingredient"
-                placeholder="e.g oregano"
-                name="ingredient"event
-            />
-            <button>
-                Add ingredient
-            </button> 
-
+            <form action={addIngredient} className="add-ingredient-form">
+                <input
+                    type="text"
+                    placeholder="e.g. oregano"
+                    aria-label="Add ingredient"
+                    name="ingredient"
+                />
+                <button>Add ingredient</button>
             </form>
-            <section>
-                <h2>Ingredients on Hand:</h2>
-                <ul className="Ingredients-list" aria-live="polite">{ingredientsListItems}</ul>
-                <div className="get-recipe-container">
-                    <div>
-                        <h3>Ready for a Recipe?</h3>
-                        <p>Generate  recipe from your list of ingredients</p>
-                    </div>
-                    <button>Get a recipe</button>
-                </div>
-            </section>
-            <ul>
-                {ingredientsListItems}
-            </ul>
+
+            {ingredients.length > 0 &&
+                <IngredientsList
+                    ingredients={ingredients}
+                    getrecipe={getrecipe}
+                />
+            }
+
+            {recipe && <ClaudeRecipe recipe={recipe} />}
         </main>
     )
 }

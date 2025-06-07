@@ -57,6 +57,7 @@ main {
     width: 150px;
     font-size: 0.875rem;
     font-weight: 500;
+    cursor: pointer;
 }
 
 
@@ -66,13 +67,11 @@ main {
     margin-right: 5px;
 }
 .add-ingredient-form > button:hover{
-    background-color: #1f1f1f;
+    background-color: #2e2e2e;
 }
 
-.form > button:hover{
-    background-color: rgb(65, 65, 65);
-    cursor: pointer;
-}
+
+
 .get-recipe-container button {
     border: none;
     border-radius: 6px;
