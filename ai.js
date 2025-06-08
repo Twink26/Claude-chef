@@ -8,14 +8,16 @@ You are an assistant that receives a list of ingredients that a user has and sug
 `
 
 const client = new InferenceClient({
-  token: import.meta.env.VITE_HUGGINGFACE_API_KEY,
+  token: process.env.REACT_APP_HUGGINGFACE_API_KEY
+,
 });
+
 
 
 export async function getrecipefromai(ingredientsArr) {
     const ingredientsString = ingredientsArr.join(", ")
     try {
-        const response = await hf.chatCompletion({
+        const response = await client.chatCompletion({
             model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
             messages: [
                 { role: "system", content: SYSTEM_PROMPT },
@@ -25,6 +27,6 @@ export async function getrecipefromai(ingredientsArr) {
         })
         return response.choices[0].message.content
     } catch (err) {
-        console.error(err.message)
+         console.error("API Error:", err.message)
     }
 }

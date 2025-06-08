@@ -83,6 +83,9 @@ main {
     font-size: 1 rem;
     cursor: pointer;
 }
+.get-recipe-container button :hover{
+    background: rgb(216, 29, 29);
+}
 .get-recipe-container p {
     color: #6B7280;
     font-size: 0.875rem;
