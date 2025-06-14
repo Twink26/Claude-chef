@@ -11,14 +11,21 @@ export default function Main(){
         const recipemarkdown = await getrecipefromai(ingredients)
         setRecipe(recipemarkdown)
     }
-    function addIngredient(formData) {
-        const newIngredient = formData.get("ingredient")
-        setIngredients(prevIngredients => [...prevIngredients, newIngredient])
-    }
+    function addIngredient(event) {
+    event.preventDefault(); // ✅ stops page reload
+    const formData = new FormData(event.target);
+    const newIngredient = formData.get("ingredient");
+
+    if (newIngredient.trim() === "") return; // Avoid empty ingredients
+
+    setIngredients(prev => [...prev, newIngredient]);
+    event.target.reset(); // ✅ clears input field
+}
+
 
     return (
         <main>
-            <form action={addIngredient} className="add-ingredient-form">
+            <form onSubmit={addIngredient} className="add-ingredient-form">
                 <input
                     type="text"
                     placeholder="e.g. oregano"
