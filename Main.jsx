@@ -1,48 +1,49 @@
-import React from "react"
-import IngredientsList from "./components/IngredientsList"
-import ClaudeRecipe from "./components/ClaudeRecipe"
-import { getrecipefromai} from "./ai"
-export default function Main(){
-    const [ingredients, setIngredients] = React.useState([])
-    const [recipe, setRecipe] = React.useState("")
+import React, { useState } from "react";
+import IngredientsList from "./components/IngredientsList";
+import ClaudeRecipe from "./components/ClaudeRecipe";
+import { getrecipefromai } from "./ai";
 
-    
-    async function getrecipe(){
-        const recipemarkdown = await getrecipefromai(ingredients)
-        setRecipe(recipemarkdown)
-    }
-    function addIngredient(event) {
-    event.preventDefault(); // ✅ stops page reload
-    const formData = new FormData(event.target);
-    const newIngredient = formData.get("ingredient");
+export default function Main() {
+  const [ingredients, setIngredients] = useState([]);
+  const [input, setInput] = useState("");
+  const [recipe, setRecipe] = useState("");
 
-    if (newIngredient.trim() === "") return; // Avoid empty ingredients
+  // add new ingredient
+  const addIngredient = (e) => {
+    e.preventDefault();
+    const trimmed = input.trim();
+    if (!trimmed) return;                  // skip blanks
+    setIngredients([...ingredients, trimmed]);
+    setInput("");                          // clear input
+  };
 
-    setIngredients(prev => [...prev, newIngredient]);
-    event.target.reset(); // ✅ clears input field
-}
+  // fetch recipe from Hugging Face
+  const getRecipe = async () => {
+    if (ingredients.length === 0) return;
+    const md = await getrecipefromai(ingredients);
+    setRecipe(md);
+  };
 
+  return (
+    <main>
+      <form onSubmit={addIngredient} className="add-ingredient-form">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="e.g. oregano"
+          aria-label="Add ingredient"
+        />
+        <button type="submit">Add ingredient</button>
+      </form>
 
-    return (
-        <main>
-            <form onSubmit={addIngredient} className="add-ingredient-form">
-                <input
-                    type="text"
-                    placeholder="e.g. oregano"
-                    aria-label="Add ingredient"
-                    name="ingredient"
-                />
-                <button>Add ingredient</button>
-            </form>
+      {ingredients.length > 0 && (
+        <IngredientsList
+          ingredients={ingredients}
+          getRecipe={getRecipe}   // prop name matches IngredientsList
+        />
+      )}
 
-            {ingredients.length > 0 &&
-                <IngredientsList
-                    ingredients={ingredients}
-                    getrecipe={getrecipe}
-                />
-            }
-
-            {recipe && <ClaudeRecipe recipe={recipe} />}
-        </main>
-    )
+      {recipe && <ClaudeRecipe recipe={recipe} />}
+    </main>
+  );
 }
